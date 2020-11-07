@@ -77,7 +77,7 @@ public class SinglyLinkedList<Type> implements LinkedListInterface<Type> {
          * @param item - Requested item to look for the LL
          * @returns true if a node with the item is found, else we return false
          **/
-        return (search(item) == null)
+        return (search(item) == null);
     }
 
     @Override
@@ -124,6 +124,17 @@ public class SinglyLinkedList<Type> implements LinkedListInterface<Type> {
             prevNode.next = removeNode.next;    // We set the prevNode's next node to be the removeNode's next node
         }
         return true;
+    }
+
+    @Override
+    public void printLL() {
+        Node remHead = head;                    // Remember the head of the LL before iterating
+        while (head != null)
+        {
+            System.out.println(head.value);     // Print the value of the node
+            head = head.next;                   // Move to the next node
+        }
+        head = remHead;                         // Set the head back to the original position
     }
 
 
