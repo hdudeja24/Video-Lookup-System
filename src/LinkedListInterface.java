@@ -1,17 +1,11 @@
 public interface LinkedListInterface <Type> {
-    public boolean add(Type item);
+    public boolean insert(Type item);
 
-    public boolean isempty();
+    public boolean isEmpty();               // If the LL is empty return true, else return false
 
-    public void clear();
+    public boolean isFound(Type item);      // If the item is in the list
 
-    public Type get(int index);
+    public int size();                      // Return the current size of the LL
 
-    public boolean contains(Object o);
-
-    public int indexOf(Object index);
-
-    public int size();
-
-    public void remove(int index);
+    public boolean remove(Type item);     // If the item is in the LL, we remove and return true. Else item not in the LL return false as we can't remove
 }
