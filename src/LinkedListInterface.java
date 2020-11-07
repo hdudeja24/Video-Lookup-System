@@ -1,4 +1,4 @@
-public interface LinkedList <Type> {
+public interface LinkedListInterface <Type> {
     public boolean add(Type item);
 
     public boolean isempty();
