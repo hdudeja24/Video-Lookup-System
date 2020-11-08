@@ -77,7 +77,8 @@ public class SinglyLinkedList<Type> implements LinkedListInterface<Type> {
          * @param item - Requested item to look for the LL
          * @returns true if a node with the item is found, else we return false
          **/
-        return (search(item) == null);
+
+        return !(search(item) == null);
     }
 
     @Override
