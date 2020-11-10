@@ -48,7 +48,14 @@ public class Movie {
     }
 
     public int getHashKey() {
-        return 0;
+        String words[] = title.split(" ");
+        int hashVal = 0;
+        for(String word:words)
+        {
+            int value = word.charAt(0);
+            hashVal += value;
+        }
+        return hashVal;
     }
 
     public String toString() {
