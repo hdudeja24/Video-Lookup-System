@@ -1,6 +1,15 @@
 public class HMap<Key , Value> implements HMapInterface<Key, Value>
 {
     private int size;                       // Keep track of elements in the HashMap
+    private int maxSize;                    // The max size of the hash map array
+    LinkedListInterface<Key, Value> array[];
+
+    HMap(int inputSize)
+    {
+        maxSize = inputSize;
+        size = 0;
+        array = new SinglyLinkedList[inputSize];
+    }
     @Override
     public boolean containsKey(Key key) {
         return false;
@@ -33,6 +42,7 @@ public class HMap<Key , Value> implements HMapInterface<Key, Value>
 
     @Override
     public boolean insert(Key key, Value value) {
+
         return false;
     }
 }
