@@ -140,5 +140,14 @@ public class SinglyLinkedList<Key,Value> implements LinkedListInterface<Key,Valu
         head = remHead;                         // Set the head back to the original position
     }
 
+    @Override
+    public Value getValue(Key key) {
+        Node searchNode = search(key);          // Search and get the node that matches the given key
+        if (searchNode == null)                 // If the searchNode is null that means there is no node with the given key
+            return null;                        // So we return null again
+        else                                    // Else we found a node with the given key
+            return searchNode.value;            // Return the node's value
+    }
+
 
 }
