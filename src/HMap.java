@@ -54,7 +54,10 @@ public class HMap implements HMapInterface
     public Movie removeValue(String key) {
         int index = hash(key);              // Get the index location if the given key
         LinkedListInterface<String, Movie> LL = array[index];       // Get the LL for that index location
-        return LL.remove(key);                                      // Remove movie from LL and return it.
+        Movie movie = LL.remove(key);                               // Remove movie from LL and return it.
+        if (movie != null)                                          // If we actually find the movie in the hashmap/LL'
+            size--;                                                 // We update the size
+        return LL.remove(key);
     }
 
     @Override
@@ -67,6 +70,8 @@ public class HMap implements HMapInterface
         int index = hash(value.getHashKey());           // Get the index location which this value would be saved in the array
         LinkedListInterface LL = array[index];          // Get the linked list where the movie could be inserted
         boolean didInsert = LL.insert(key, value);      // Try inserted into the LL and save the result
+        if (didInsert)                                  // If the key was not found and we were able to insert the key and movie
+            size++;                                     // Then we update the sizes
         return didInsert;                               // Returns true if value was inserted, meaning there wasn't a node in the LL with the given key
     }
 
