@@ -15,4 +15,6 @@ public interface HMapInterface{
 
     void printMap();
 
+    int getMapArrLen();                     // Returns the length of the array of the hashmap
+
 }

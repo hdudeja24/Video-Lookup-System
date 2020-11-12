@@ -83,4 +83,9 @@ public class HMap implements HMapInterface
         for (LinkedListInterface LL: array)             // Iterate through every LL
             LL.printLL();                               // Print LL
     }
+
+    @Override
+    public int getMapArrLen() {
+        return array.length;                            // Return the size of the array
+    }
 }
