@@ -1,10 +1,12 @@
-public class SinglyLinkedList<Type> implements LinkedListInterface<Type> {
+public class SinglyLinkedList<Key,Value> implements LinkedListInterface<Key,Value> {
     private class Node{
-        Type value;             // The data of the node
-        Node next;              // Reference to the next node in the LL
-        Node(Type item){        // Constructor given a Type item
-            value = item;       // Set the item as value of the node
-            next = null;        // Set the next node reference as null
+        Key key;                             // Unique ID in the LL
+        Value value;                         // The data of the node
+        Node next;                          // Reference to the next node in the LL
+        Node(Key key,Value value){          // Constructor given a Type item
+            this.key = key;                 // Set the key as key of the node
+            this.value = value;             // Set the value as value of the node
+            next = null;                    // Set the next node reference as null
         }
     }
 
@@ -19,8 +21,8 @@ public class SinglyLinkedList<Type> implements LinkedListInterface<Type> {
     }
 
     @Override
-    public boolean insert(Type item) {
-        Node insertNode = new Node(item);   // Create a new node with the given item
+    public boolean insert(Key key, Value value) {
+        Node insertNode = new Node(key, value);   // Create a new node with the given item
 
         if(isEmpty()){              // If the list is empty, the new node becomes the head
             head = tail = insertNode;
@@ -29,7 +31,7 @@ public class SinglyLinkedList<Type> implements LinkedListInterface<Type> {
         }
 
         // Else the LL has at least one node, we iterate through the Linked List
-        if (isFound(item))          // If the item is found already in the LL, we don't insert
+        if (isFound(key))          // If the item is found already in the LL, we don't insert
             return false;           // Return false as we don't insert
 
         // We get here if the LL is not empty and the item is not in the LL
@@ -39,7 +41,7 @@ public class SinglyLinkedList<Type> implements LinkedListInterface<Type> {
     }
 
 
-    private Node search (Type item){
+    private Node search (Key key){
         /**
          * Method iterates through the LL to find a node with the given item in it
          * @param item - the item we are looking for in the LL
@@ -54,7 +56,7 @@ public class SinglyLinkedList<Type> implements LinkedListInterface<Type> {
         Node currNode = head;       // We'll use this to iterate and for better naming convention
         while (currNode != null)    // While we haven't fallen off the LL
         {
-            if (currNode.value == item) // First we check if the current node has the item
+            if (currNode.key == key) // First we check if the current node has the item
             {
                 head = remHead;     // Set the head back to the original position
                 return currNode;    // We return the node as it has the item we are looking for
@@ -71,14 +73,14 @@ public class SinglyLinkedList<Type> implements LinkedListInterface<Type> {
     }
 
     @Override
-    public boolean isFound(Type item) {
+    public boolean isFound(Key key) {
         /**
          * Iterates through the LL to find the node with the given item.
          * @param item - Requested item to look for the LL
          * @returns true if a node with the item is found, else we return false
          **/
 
-        return !(search(item) == null);
+        return !(search(key) == null);
     }
 
     @Override
@@ -87,7 +89,7 @@ public class SinglyLinkedList<Type> implements LinkedListInterface<Type> {
     }
 
     @Override
-    public boolean remove(Type item) {
+    public Value remove(Key key) {
         /**
          * Method removes the requested item from the LL
          * @param item - requested item to be deleted from the LL
@@ -95,9 +97,9 @@ public class SinglyLinkedList<Type> implements LinkedListInterface<Type> {
          * @returns true if the item is in the LL and the node was successfully removed
          * */
 
-        Node removeNode = search(item);     // Get the search result
+        Node removeNode = search(key);      // Get the search result
         if (removeNode == null)             // If the node is null then we didn't find the item or the LL is empty
-            return false;                   // We return false as there is nothing to remove
+            return null;                    // We return false as there is nothing to remove
         // We get here if the removeNode is not null, therefore we have to remove it from the LL
         if (removeNode == head)             // First case, if the removeNode is the head
         {
@@ -124,7 +126,7 @@ public class SinglyLinkedList<Type> implements LinkedListInterface<Type> {
             // We get here when we get the previous node of the removeNode
             prevNode.next = removeNode.next;    // We set the prevNode's next node to be the removeNode's next node
         }
-        return true;
+        return removeNode.value;
     }
 
     @Override
@@ -136,6 +138,15 @@ public class SinglyLinkedList<Type> implements LinkedListInterface<Type> {
             head = head.next;                   // Move to the next node
         }
         head = remHead;                         // Set the head back to the original position
+    }
+
+    @Override
+    public Value getValue(Key key) {
+        Node searchNode = search(key);          // Search and get the node that matches the given key
+        if (searchNode == null)                 // If the searchNode is null that means there is no node with the given key
+            return null;                        // So we return null again
+        else                                    // Else we found a node with the given key
+            return searchNode.value;            // Return the node's value
     }
 
 

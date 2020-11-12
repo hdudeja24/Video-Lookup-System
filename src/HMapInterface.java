@@ -1,18 +1,18 @@
-public interface HMapInterface<Key, Value> {
-    boolean containsKey(Key key);
+public interface HMapInterface{
+    boolean containsKey(String key);
 
-    boolean containsValue(Value value);
+    boolean containsValue(Movie value);
 
-    Value getValue(Key key);
+    Movie getValue(String key);
 
     boolean isEmpty();
 
-    Value removeValue(Key key);
+    Movie removeValue(String key);
 
-    int size();
+    int getSize();
 
-    boolean insert(Key key, Value value);
+    boolean insert(String key, Movie value);
 
-
+    void printMap();
 
 }
