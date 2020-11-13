@@ -1,32 +1,38 @@
 public class HMap implements HMapInterface
 {
     private int size;                       // Keep track of elements in the HashMap
-    LinkedListInterface<String, Movie> array[];
+    LinkedListInterface<Movie> array[]; // The array that will have a linkedlist per each element to handle chaining
 
     HMap(int inputSize)
     {
-        array = new SinglyLinkedList[inputSize];
-        size = 0;
+        /**
+         * This is the constructor for the HMap class
+         * @param inputSize - the user will input the size for the array in the class
+         * */
+
+        array = new SinglyLinkedList[inputSize];    // Allocate memory for the given input size
+        for (int i = 0; i < array.length; i++)      // Loop through each index of the array
+            array[i] = new SinglyLinkedList<Movie>();   // Initialize a LL in each element of the array
+        size = 0;                                   // We start with no movies/nodes in any LL so we set size to 0
     }
 
     protected int hash(int hashKey)
     {
-        return hashKey % array.length;
+        return hashKey % array.length;              // Calculate the index location, depending on the size of the array, for the given hashkey
     }
 
     protected int hash(String key) {
-        String words[] = key.split(" ");
-        int hashKey = 0;
-        for (String word : words)
+        String words[] = key.split(" ");    // Split the string into a list of words
+        int hashKey = 0;                        // We start with a hash of 0
+        for (String word : words)               // Iterate through every stirng/word in the list of words
             hashKey += word.charAt(0);          // Add the value of the first letter in the current word
-
-        return hash(hashKey);
+        return hash(hashKey);                   // Return the final value of the hash
     }
 
     @Override
     public boolean containsKey(String key) {
         int index = hash(key);                  // Get the index location of where the movie would be stored
-        LinkedListInterface<String, Movie> LL = array[index];  // Get the LinkedList where the movie would be stored
+        LinkedListInterface<Movie> LL = array[index];  // Get the LinkedList where the movie would be stored
         return LL.isFound(key);                 // Return true if the key exists, else returns false
     }
 
@@ -34,30 +40,30 @@ public class HMap implements HMapInterface
     public boolean containsValue(Movie value) {
         String key = value.getTitle();          // THe title of the movie is the key
         int index = hash(value.getHashKey());   // Get the index location where the movie should be saved
-        LinkedListInterface<String, Movie> LL = array[index];  // Get the LL of the index location
+        LinkedListInterface<Movie> LL = array[index];  // Get the LL of the index location
         return (LL.isFound(key));               // Returns true if the movie is saved in the LL, else return false
     }
 
     @Override
     public Movie getValue(String key) {
         int index = hash(key);                  // Get the index location for the given key
-        LinkedListInterface<String, Movie> LL = array[index];  // Get the element of the index
+        LinkedListInterface<Movie> LL = array[index];  // Get the element of the index
         return LL.getValue(key);                // Return the movie if found, else returns null
     }
 
     @Override
     public boolean isEmpty() {
-        return (getSize() == 0);
+        return (getSize() == 0);                // If the size is 0 then return true, as it's empty, else return false as it has movies saved
     }
 
     @Override
     public Movie removeValue(String key) {
-        int index = hash(key);              // Get the index location if the given key
-        LinkedListInterface<String, Movie> LL = array[index];       // Get the LL for that index location
+        int index = hash(key);                                      // Get the index location if the given key
+        LinkedListInterface<Movie> LL = array[index];       // Get the LL for that index location
         Movie movie = LL.remove(key);                               // Remove movie from LL and return it.
         if (movie != null)                                          // If we actually find the movie in the hashmap/LL'
             size--;                                                 // We update the size
-        return LL.remove(key);
+        return movie;
     }
 
     @Override
@@ -68,10 +74,12 @@ public class HMap implements HMapInterface
     @Override
     public boolean insert(String key, Movie value) {
         int index = hash(value.getHashKey());           // Get the index location which this value would be saved in the array
-        LinkedListInterface LL = array[index];          // Get the linked list where the movie could be inserted
+        LinkedListInterface<Movie> LL = array[index];          // Get the linked list where the movie could be inserted
         boolean didInsert = LL.insert(key, value);      // Try inserted into the LL and save the result
         if (didInsert)                                  // If the key was not found and we were able to insert the key and movie
             size++;                                     // Then we update the sizes
+        else
+            System.out.println("testing");
         return didInsert;                               // Returns true if value was inserted, meaning there wasn't a node in the LL with the given key
     }
 
@@ -80,12 +88,13 @@ public class HMap implements HMapInterface
         /**
          * Method iterates through every LinkedList in the array, and prints all the Movies saved in the current LL
         * */
+
         for (LinkedListInterface LL: array)             // Iterate through every LL
-            LL.printLL();                               // Print LL
+            LL.printLL();                               // Print LL, the LL class has a print that iterates through it's noddes
     }
 
     @Override
     public int getMapArrLen() {
-        return array.length;                            // Return the size of the array
+        return array.length;                            // Return the size of the array of the hashmap (this was initially provided for the constructor)
     }
 }

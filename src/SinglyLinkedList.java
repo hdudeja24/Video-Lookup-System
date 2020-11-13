@@ -1,9 +1,9 @@
-public class SinglyLinkedList<Key,Value> implements LinkedListInterface<Key,Value> {
+public class SinglyLinkedList<Value> implements LinkedListInterface<Value> {
     private class Node{
-        Key key;                             // Unique ID in the LL
+        String key;                             // Unique ID in the LL
         Value value;                         // The data of the node
         Node next;                          // Reference to the next node in the LL
-        Node(Key key,Value value){          // Constructor given a Type item
+        Node(String key,Value value){          // Constructor given a Type item
             this.key = key;                 // Set the key as key of the node
             this.value = value;             // Set the value as value of the node
             next = null;                    // Set the next node reference as null
@@ -21,7 +21,7 @@ public class SinglyLinkedList<Key,Value> implements LinkedListInterface<Key,Valu
     }
 
     @Override
-    public boolean insert(Key key, Value value) {
+    public boolean insert(String key, Value value) {
         Node insertNode = new Node(key, value);   // Create a new node with the given item
 
         if(isEmpty()){              // If the list is empty, the new node becomes the head
@@ -41,7 +41,7 @@ public class SinglyLinkedList<Key,Value> implements LinkedListInterface<Key,Valu
     }
 
 
-    private Node search (Key key){
+    private Node search (String key){
         /**
          * Method iterates through the LL to find a node with the given item in it
          * @param item - the item we are looking for in the LL
@@ -56,7 +56,7 @@ public class SinglyLinkedList<Key,Value> implements LinkedListInterface<Key,Valu
         Node currNode = head;       // We'll use this to iterate and for better naming convention
         while (currNode != null)    // While we haven't fallen off the LL
         {
-            if (currNode.key == key) // First we check if the current node has the item
+            if (currNode.key.equals(key)) // First we check if the current node has the item
             {
                 head = remHead;     // Set the head back to the original position
                 return currNode;    // We return the node as it has the item we are looking for
@@ -73,7 +73,7 @@ public class SinglyLinkedList<Key,Value> implements LinkedListInterface<Key,Valu
     }
 
     @Override
-    public boolean isFound(Key key) {
+    public boolean isFound(String key) {
         /**
          * Iterates through the LL to find the node with the given item.
          * @param item - Requested item to look for the LL
@@ -89,7 +89,7 @@ public class SinglyLinkedList<Key,Value> implements LinkedListInterface<Key,Valu
     }
 
     @Override
-    public Value remove(Key key) {
+    public Value remove(String key) {
         /**
          * Method removes the requested item from the LL
          * @param item - requested item to be deleted from the LL
@@ -141,7 +141,7 @@ public class SinglyLinkedList<Key,Value> implements LinkedListInterface<Key,Valu
     }
 
     @Override
-    public Value getValue(Key key) {
+    public Value getValue(String key) {
         Node searchNode = search(key);          // Search and get the node that matches the given key
         if (searchNode == null)                 // If the searchNode is null that means there is no node with the given key
             return null;                        // So we return null again
