@@ -22,11 +22,17 @@ public class HMap implements HMapInterface
     }
 
     protected int hash(String key) {
-        String words[] = key.split(" ");    // Split the string into a list of words
-        int hashKey = 0;                        // We start with a hash of 0
-        for (String word : words)               // Iterate through every stirng/word in the list of words
-            hashKey += word.charAt(0);          // Add the value of the first letter in the current word
-        return hash(hashKey);                   // Return the final value of the hash
+        /**
+         * This method relies on the Movie class function getHashKey to create a hash value for the given string key.
+         * After getting the hashKey value for the given string, it hashes it to a number between 0 and the size of the
+         * HMap's array
+         *
+         * @param key - Unique key that we are looking for in the HMap
+         * @return the hash location where the value of the key would be stored in the HMap
+         **/
+
+        int hashKey = new Movie(key, 0, 0).getHashKey();    // Get the hashkey equivalent for the string key
+        return hash(hashKey);
     }
 
     @Override

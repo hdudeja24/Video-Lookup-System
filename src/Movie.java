@@ -48,14 +48,19 @@ public class Movie {
     }
 
     public int getHashKey() {
-        String words[] = title.split(" ");
-        int hashVal = 0;
-        for(String word:words)
-        {
-            int value = word.charAt(0);
-            hashVal += value;
-        }
-        return hashVal;
+        /**
+         * Method created a hash value for the title of the Movie object
+         * @returns a hash value created by the title of the movie
+        * */
+
+        int[] values =  getFirstLetterCodes();      // Get the char values of the 1st letter of each word in the movie's title
+        int result = values[0];                     // Result will be returned, we start with the first value in the array
+        if(values.length == 1)                      // If the array is only size of 1
+            return result;                          // Then we return the result with just the first value in tha array
+                                                    // Else the values is size greater than 1
+        for(int i = 1; i < values.length; i++)      // We iterate through each value, starting from the 2nd one
+            result = (result) * 128 + values[i];    // Multiply the current result times 128 and add the current value of the arrya
+        return result;                              // Return the final result
     }
 
     public String toString() {
