@@ -12,4 +12,6 @@ public interface LinkedListInterface <Value> {
     void printLL();             // Iterate and print the values inside the LL
 
     Value getValue(String key);    // Return node's value that matches the given key
+
+    int getLastSearchResult();      // Returns the last total nodes visited
 }

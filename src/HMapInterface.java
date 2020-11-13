@@ -17,4 +17,6 @@ public interface HMapInterface{
 
     int getMapArrLen();                     // Returns the length of the array of the hashmap
 
+    int getLastSearchResult();              // Get the total nodes of the last search
+
 }

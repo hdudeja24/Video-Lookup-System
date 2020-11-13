@@ -13,11 +13,13 @@ public class SinglyLinkedList<Value> implements LinkedListInterface<Value> {
     // Global variables
     Node head, tail;            // The head for the start of the LL and tail for the end of LL
     int size;                   // Keep track of the size of the LL
+    int lastTotNodesVisited;    // This is updated every time when the search methos is called
 
     SinglyLinkedList(){         // Basic constructor for the LL class
         head = null;            // We start with an empty LL
         tail = null;            // We start with an empty LL
         size = 0;               // Set size to 0 as there is nothing in the LL
+        lastTotNodesVisited = 0;// Start with a size of 0 and gets updated everytime the search is called
     }
 
     @Override
@@ -27,6 +29,7 @@ public class SinglyLinkedList<Value> implements LinkedListInterface<Value> {
         if(isEmpty()){              // If the list is empty, the new node becomes the head
             head = tail = insertNode;
             size++;
+
             return true;
         }
 
@@ -49,13 +52,16 @@ public class SinglyLinkedList<Value> implements LinkedListInterface<Value> {
          *
          * */
 
+        lastTotNodesVisited = 0;    // Reset the total visited nodes for this new search
         if (isEmpty())              // If the LL is empty
             return null;            // Then we return null as the item can't be in the LL
+
         // We get here if the LL is not empty, aka has at least one node in it
         Node remHead = head;        // Remember the head of the LL before iterating through it
         Node currNode = head;       // We'll use this to iterate and for better naming convention
         while (currNode != null)    // While we haven't fallen off the LL
         {
+            lastTotNodesVisited++;  // Update the total nodes visited
             if (currNode.key.equals(key)) // First we check if the current node has the item
             {
                 head = remHead;     // Set the head back to the original position
@@ -147,6 +153,11 @@ public class SinglyLinkedList<Value> implements LinkedListInterface<Value> {
             return null;                        // So we return null again
         else                                    // Else we found a node with the given key
             return searchNode.value;            // Return the node's value
+    }
+
+    @Override
+    public int getLastSearchResult() {          // Returns the total nodes visited the last time the search method was called
+        return this.lastTotNodesVisited;
     }
 
 

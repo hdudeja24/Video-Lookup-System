@@ -3,6 +3,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 
 public class Project3 {
+    private static int totGetCmds = 0;
+    private static int totFindCmds = 0;
+    private static int totNodesVisited = 0;
 
     public static void main(String [] arguments) {
         String movieFile = "/Users/hits/eclipse-workspace/Project3/movie.txt";  // This can be changed to read and save movies from a file to the hashmap
@@ -31,7 +34,6 @@ public class Project3 {
             menu(cmd, db, sc);                      // Handle the logic of the user
         } while(cmd != 'Q');
         sc.close();
-        System.out.println("You exited the program.");
 
     }
 
@@ -76,8 +78,6 @@ public class Project3 {
         } catch (FileNotFoundException e){
             System.out.println("File\' " + movieFile + "\' was not found. The database will be empty");
         }
-        System.out.println("Size: " + db.getSize());
-        System.out.println("Count: " + count);
         return db;
 
     }
@@ -119,6 +119,7 @@ public class Project3 {
                 break;
 
             case 'G':
+                totGetCmds++;                                   // Update total times get cmd
                 System.out.println("Enter the title of the movie: ");
                 title = input.nextLine();
                 movie = db.removeValue(title);
@@ -130,9 +131,11 @@ public class Project3 {
                     System.out.println("The movie " + title + " was checked out");
 
                 }
+                totNodesVisited += db.getLastSearchResult();    // Add total nodes visited for this cmd
                 break;
 
             case 'F':
+                totFindCmds++;                                  // Update total find cmds
                 System.out.println("Enter the title of the movie: ");
                 title = input.nextLine();
                 movie = db.getValue(title);
@@ -144,6 +147,7 @@ public class Project3 {
                     System.out.println("Year released: " + movie.getYearReleased());
                     System.out.println("Running time: " + movie.getRunningTime());
                 }
+                totNodesVisited += db.getLastSearchResult();    // Add total nodes visited for this cmd
                 break;
 
             case 'O':
@@ -154,7 +158,13 @@ public class Project3 {
                 break;
 
             case 'Q':
-                System.out.println("Exiting the program....");
+                System.out.println("Stats of Program: ");
+                System.out.println("Get Commands: " + totGetCmds);
+                System.out.println("Find Commands: " + totFindCmds);
+                System.out.println("Total movies visited: " + totNodesVisited);
+                System.out.println("\n\nExiting the program....");
+                System.out.println("You exited the program.");
+
                 break;
 
             case 'H':
@@ -167,12 +177,13 @@ public class Project3 {
 
     private static void printMenuOptions(){
         /**
-         *
+         * Function prints all available cmd options for the program and a small description
          * */
 
-        System.out.println("CMDS | Descriptions");
+        System.out.println("CMD | Descriptions");
         System.out.println("A | Add a movie");
         System.out.println("L | List all movies");
+        System.out.println("F | Find if a movie is a available");
         System.out.println("G | Get all movies");
         System.out.println("O | Compute the occupancy of the table");
         System.out.println("Q | Quit the database");
