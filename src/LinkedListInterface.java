@@ -1,3 +1,10 @@
+/**
+ * @author: Hitanshu Dudeja
+ * Class: EECS 2500
+ * Project 3: Video-Lookup-System
+ * Date : 11/15/2020
+ **/
+
 public interface LinkedListInterface <Value> {
     boolean insert(String key, Value value);
 

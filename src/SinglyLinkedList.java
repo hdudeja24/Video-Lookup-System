@@ -1,3 +1,10 @@
+/**
+ * @author: Hitanshu Dudeja
+ * Class: EECS 2500
+ * Project 3: Video-Lookup-System
+ * Date : 11/15/2020
+ **/
+
 public class SinglyLinkedList<Value> implements LinkedListInterface<Value> {
     private class Node{
         String key;                             // Unique ID in the LL

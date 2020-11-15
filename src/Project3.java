@@ -1,3 +1,10 @@
+/**
+ * @author: Hitanshu Dudeja
+ * Class: EECS 2500
+ * Project 3: Video-Lookup-System
+ * Date : 11/15/2020
+ **/
+
 import java.util.Scanner;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -169,6 +176,7 @@ public class Project3 {
 
             case 'H':
                 printMenuOptions();
+                break;
             default:
                 System.out.println("Not a valid cmd! Please check the available commands from here: " );
                 printMenuOptions();
